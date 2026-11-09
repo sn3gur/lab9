@@ -1,0 +1,95 @@
+  464  ls
+  465  mkdir lab9
+  466  cd lab9
+  467  gh create repo lab9
+  468  git init
+  469  gh create repo lab9
+  470  gh repo create lab9
+  471  gh repo create lab9 --public
+  472  ls
+  473  gh label create EPIC
+  474  git remote add origin git@github.com:sn3gur/lab9.git
+  475  gh label create EPIC
+  476  gh issue create --title "do lab 9" --label EPIC
+  477  gh issue create --title "create validate-data script 
+" --issue "enhancement" --asignee "@me"
+  478  gh issue create --title "create validate-data script 
+" --label "enhancement" --asignee "@me"
+  479  gh issue create --title "create validate-data script 
+" --label "enhancement" --assignee "@me"
+  480  cat << 'EOF' > validate-data.sh
+#!/bin/bash
+if [ ${#1} -le 15 ] && [ ${#2} -le 10 ]; then
+    echo "PASS"
+else
+    echo "FAIL"
+fi
+EOF
+
+  481  ls
+  482  nano validate-data.sh
+  483  chmod +x validate-data.sh
+  484  bash validate-data.sh "andrii snihuriak" "0509065699"
+  485  nano validate-data.sh
+  486  bash validate-data.sh "andrii snihur" "0509065699"
+  487  bash validate-data.sh "andrii snihur" "050906569999"
+  488  bash validate-data.sh "andrii snihuriak" "0509065699"
+  489  gh issue create --title "create yaml test script 
+" --label "enhancement" --assignee "@me"
+  490  mkdir -p .github/workflows
+  491  cat <<EOF> .github/workflows/basictests.yml
+name: Basic tests
+on:
+push:
+branches: main
+jobs :
+lab9-basic-tests
+runs-on: ubuntu-latest
+steps:
+- name: Check out repository
+        uses: actions/checkout@v3
+      - name: Make script executable
+        run: chmod +x validate-data.sh
+      - name: Run and verify output
+        run: |
+          OUTPUT=$(bash validate-data.sh "pearse mccarthy" "0831122334")
+          echo "Script output was: $OUTPUT"
+          if [ "$OUTPUT" == "PASS" ]; then echo "Test Passed!"; else exit 1; fi
+          OUTPUT=$(bash validate-data.sh "pearse mccarthy" "08311223344")
+          echo "Script output was: $OUTPUT"
+          if [ "$OUTPUT" == "FAIL" ]; then echo "Test Passed!"; else exit 1; fi
+          OUTPUT=$(bash validate-data.sh "pearseT mccarthy" "0831122334")
+          echo "Script output was: $OUTPUT"
+          if [ "$OUTPUT" == "FAIL" ]; then echo "Test Passed!"; else exit 1; fi
+
+  492  nano .github/workflows/basictests.yml
+  493  git add .
+  494  git commit -m "add validate-data and basictests.yml"
+  495  git branch -M main
+  496  git push -u origin  main
+  497  gh issue list
+  498  gh issue create --title "create project view" --label "enhancement" --assignee "@me" --body "create lab9 project table view"
+  499  gh issue list
+  500  gh issue close #4
+  501  gh issue list
+  502  gh issue close #4
+  503  git add .
+  504  git commit -m "closed issue 4"
+  505  gh issue list
+  506  gh issue close 4
+  507  gh issue list
+  508  gh issue create --title "create test branch" --label "enhancement" --assignee "@me" --body "create test branch and update max name length to 20"
+  509  git checkout -b test
+  510  nano validate-data.sh
+  511  git add validate-data.sh
+  512  git commit -m "Change max name length to 20"
+  513  git push -u origin test
+  514  nano .github/workflows/basictests.yml
+  515  git add .github/workflows/basictests.yml
+  516  git commit -m "Trigger action on main and test branches"
+  517  git push
+  518  nano .github/workflows/basictests.yml
+  519  git add .github/workflows/basictests.yml
+  520  git commit -m "edited basictests file to run properly"
+  521  git push
+  522  history > history.txt
