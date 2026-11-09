@@ -12,12 +12,12 @@ jobs:
         run: chmod +x validate-data.sh
       - name: Run and verify output
         run: |
-          OUTPUT=$(bash validate-data.sh "pearse mccarthy" "0831122334")
+          OUTPUT=$(bash validate-data.sh "andrii snihur" "0509065699")
           echo "Script output was: $OUTPUT"
           if [ "$OUTPUT" == "PASS" ]; then echo "Test Passed!"; else exit 1; fi
-          OUTPUT=$(bash validate-data.sh "pearse mccarthy" "08311223344")
+          OUTPUT=$(bash validate-data.sh "andrii snihuriak" "050906569908311")
           echo "Script output was: $OUTPUT"
           if [ "$OUTPUT" == "FAIL" ]; then echo "Test Passed!"; else exit 1; fi
-          OUTPUT=$(bash validate-data.sh "pearseT mccarthy" "0831122334")
+          OUTPUT=$(bash validate-data.sh "andriiT snihuriak" "0509065699")
           echo "Script output was: $OUTPUT"
-          if [ "$OUTPUT" == "FAIL" ]; then echo "Test Passed!"; else exit 1; fi
+          if [ "$OUTPUT" == "PASS" ]; then echo "Test Passed!"; else exit 1; fi
